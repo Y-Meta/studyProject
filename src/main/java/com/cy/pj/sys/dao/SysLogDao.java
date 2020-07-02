@@ -1,5 +1,6 @@
 package com.cy.pj.sys.dao;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -45,7 +46,7 @@ public interface SysLogDao {//DAO
 			@Param("username")String username,//arg0,param1
 			@Param("startIndex")Integer startIndex,//arg1,param2
 			@Param("pageSize")Integer pageSize);//arg2,param3
-	
-	
-	  
+
+
+    void saveLog(Map map);
 }

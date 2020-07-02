@@ -1,4 +1,6 @@
 package com.cy.pj.sys.controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,12 @@ import com.cy.pj.sys.service.SysLogService;
 
 import lombok.Data;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
 //@ResponseBody
 //@Controller
 @RestController //==@Controller+@ReponseBody
@@ -19,6 +27,7 @@ import lombok.Data;
 public class SysLogController {
 	@Autowired
 	private SysLogService sysLogService;
+	private static Logger log = LoggerFactory.getLogger(SysLogController.class);
 
 	/**
 	 * 基于客户端提交的记录id,执行删除业务,并反馈结果
@@ -48,6 +57,22 @@ public class SysLogController {
 	    sysLogService.findPageObjects(username, pageCurrent);
 		
 		return new JsonResult(pageObject);//result.data.records
+	}
+	@RequestMapping("saveLog")
+	//@ResponseBody
+	public void saveLog(HttpServletRequest request) throws IOException {
+		//对get请求串解码，防止中文乱码
+		String qs = URLDecoder.decode(request.getQueryString(), "utf-8");
+
+		//请求串中各指标以&符号分割
+		String []  attrs = qs.split("\\&");
+		//StringBuffer buf = new StringBuffer();
+		Map map = new HashMap<String,String>();
+		for(String attr : attrs){
+			String[] a = attr.split("=");
+			map.put(a[0],a[1]);
+		}
+		sysLogService.saveLog(map);
 	}
 }
 

@@ -1,6 +1,7 @@
 package com.cy.pj.sys.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -67,6 +68,11 @@ public class SysLogServiceImpl implements SysLogService {
 		sysLogDao.findPageObjects(username, startIndex, pageSize);
 		//4.封装查询结果并返回
 		return new PageObject<>(rowCount, records, pageSize, pageCurrent);
+	}
+
+	@Override
+	public void saveLog(Map map) {
+		sysLogDao.saveLog(map);
 	}
 
 }

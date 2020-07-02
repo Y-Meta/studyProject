@@ -14,5 +14,9 @@ public class PaginationProperties {
 	public Integer getStartIndex(Integer pageCurrent) {
 		return (pageCurrent-1)*pageSize;
 	}
-	//.....
+
+    public int getPageSize() {
+		return  0;
+    }
+    //.....
 }

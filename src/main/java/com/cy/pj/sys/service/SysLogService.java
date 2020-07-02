@@ -1,6 +1,9 @@
 package com.cy.pj.sys.service;
 import com.cy.pj.common.vo.PageObject;
 import com.cy.pj.sys.entity.SysLog;
+
+import java.util.Map;
+
 /**
  * 日志模块的业务接口
  */
@@ -22,4 +25,6 @@ public interface SysLogService {
 	 PageObject<SysLog> findPageObjects(
 			 String username,
 			 Integer pageCurrent);
+
+    void saveLog(Map map);
 }
